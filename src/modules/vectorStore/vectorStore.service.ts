@@ -74,7 +74,7 @@ export class VectorStoreProvider implements OnModuleInit {
     return this.pgVectorStore.addDocuments(documents);
   }
 
-  async search(query: string, key: number) {
+  async search(query: string, key?: number) {
     return this.pgVectorStore.similaritySearch(query, key);
   }
 }

@@ -1,9 +1,14 @@
-import { Controller, Post } from '@nestjs/common';
+import { Controller, Get, Post, Query } from '@nestjs/common';
 import { LangChainService } from './langchain.service';
 
 @Controller('lang-chain')
 export class LangChainController {
   constructor(private readonly langchainService: LangChainService) {}
+
+  @Get('similaritySearch')
+  async getSearch(@Query('q') q: string) {
+    return this.langchainService.searchToQuery(q, 23);
+  }
 
   @Post('pdf')
   async readPdf() {
