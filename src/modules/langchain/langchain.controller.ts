@@ -7,7 +7,7 @@ export class LangChainController {
 
   @Get('similaritySearch')
   async getSearch(@Query('q') q: string) {
-    return this.langchainService.searchToQuery(q, 23);
+    return this.langchainService.searchByQuery(q, 23);
   }
 
   @Post('pdf')

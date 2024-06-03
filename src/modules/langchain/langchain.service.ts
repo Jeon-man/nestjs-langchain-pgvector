@@ -36,7 +36,7 @@ export class LangChainService {
     await this.vectorStore.addDocument(embeddings);
   }
 
-  async searchToQuery(query: string, key?: number) {
+  async searchByQuery(query: string, key?: number) {
     return this.vectorStore.search(query, key);
   }
 }
