@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
-import { VectorStoreProvider } from './vectorStore.provider';
 import { LangChainController } from './langchain.controller';
+import { VectorStoreModule } from '@module/vectorStore/vectorStore.module';
 
 @Module({
-  providers: [VectorStoreProvider],
+  providers: [VectorStoreModule],
   controllers: [LangChainController],
-  exports: [VectorStoreProvider],
 })
 export class LangChainModule {}

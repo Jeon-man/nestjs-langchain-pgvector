@@ -1,4 +1,9 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Post } from '@nestjs/common';
 
-@Controller()
-export class LangChainController {}
+@Controller('lang-chain')
+export class LangChainController {
+  constructor() {}
+
+  @Post('pdf')
+  async readPdf() {}
+}
