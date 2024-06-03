@@ -33,6 +33,10 @@ export class EnvironmentVariables {
   @Type(() => Number)
   @IsNumber({ allowInfinity: false, allowNaN: false })
   SQL_PORT: number;
+
+  @IsOptional()
+  @IsIn(Object.values(DatabaseDialect))
+  DIALECT: DatabaseDialect = DatabaseDialect.Postgres;
 }
 
 export const validateConfig = (env: Record<string, any>) => {
