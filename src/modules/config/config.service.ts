@@ -1,3 +1,4 @@
+import { BadRequestException } from '@nestjs/common';
 import { plainToInstance, Type } from 'class-transformer';
 import { IsIn, IsNumber, IsOptional, IsString, validateSync } from 'class-validator';
 
@@ -41,9 +42,13 @@ export const validateConfig = (env: Record<string, any>) => {
     exposeUnsetFields: true,
   });
 
-  validateSync(envInstance, {
+  const error = validateSync(envInstance, {
     enableDebugMessages: true,
+    skipMissingProperties: false,
   });
+
+  if (error.length > 0)
+    throw new BadRequestException({ message: 'Validation failed', detail: { error } });
 
   return envInstance;
 };
