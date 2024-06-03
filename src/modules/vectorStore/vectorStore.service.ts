@@ -39,12 +39,17 @@ export class VectorStoreProvider implements OnModuleInit {
 
     await this.ensureDatabaseSchema(columns, tableName);
 
-    this.pgVectorStore = new PGVectorStore(new OpenAIEmbeddings(), {
-      pool: this.pool,
-      tableName,
-      columns,
-      distanceStrategy,
-    });
+    this.pgVectorStore = new PGVectorStore(
+      new OpenAIEmbeddings({
+        apiKey: this.config.get('OPEN_AI_API_KEY'),
+      }),
+      {
+        pool: this.pool,
+        tableName,
+        columns,
+        distanceStrategy,
+      },
+    );
   }
 
   private async ensureDatabaseSchema(columns: PgVectorColumn, tableName: string) {

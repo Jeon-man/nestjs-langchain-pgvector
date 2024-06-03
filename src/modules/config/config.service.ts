@@ -37,6 +37,9 @@ export class EnvironmentVariables {
   @IsOptional()
   @IsIn(Object.values(DatabaseDialect))
   DIALECT: DatabaseDialect = DatabaseDialect.Postgres;
+
+  @IsString()
+  OPEN_AI_API_KEY: string;
 }
 
 export const validateConfig = (env: Record<string, any>) => {
