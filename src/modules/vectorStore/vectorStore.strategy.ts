@@ -15,6 +15,8 @@ export abstract class AbstractVectorStoreStrategy {
 
   private createTableQuery: string;
 
+  abstract createPool(): void;
+
   private generateCreateQuery(tableName: string, columns: PgVectorColumn) {
     this.createTableQuery = `CREATE TABLE IF NOT EXISTS ${tableName} (
       ${columns.idColumnName} UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -25,6 +27,7 @@ export abstract class AbstractVectorStoreStrategy {
   }
 
   protected async ensureDatabaseSchema(apiKey: string, tableName: string) {
+    this.createPool();
     const client = await this.pool.connect();
 
     const columns: PgVectorColumn = {
