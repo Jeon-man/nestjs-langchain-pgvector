@@ -1,13 +1,13 @@
-import { VectorStoreProvider } from '@module/vectorStore/vectorStore.service';
 import { Injectable } from '@nestjs/common';
 import { Document } from '@langchain/core/documents';
 import { PDFLoader } from '@langchain/community/document_loaders/fs/pdf';
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
 import appRootPath from 'app-root-path';
+import { FileVectorStoreStrategy } from '@module/vectorStore/file.vectorStore.strategy';
 
 @Injectable()
 export class LangChainService {
-  constructor(private readonly vectorStore: VectorStoreProvider) {}
+  constructor(private readonly fileVectorStore: FileVectorStoreStrategy) {}
 
   async embeddingPdf() {
     const pdfLoader = new PDFLoader(appRootPath + '/storage/test.pdf');
@@ -33,10 +33,10 @@ export class LangChainService {
       }));
       embeddings = embeddings.concat(pageEmbeddings);
     }
-    await this.vectorStore.addDocument(embeddings);
+    await this.fileVectorStore.addDocument(embeddings);
   }
 
   async searchByQuery(query: string, key?: number) {
-    return this.vectorStore.search(query, key);
+    return this.fileVectorStore.search(query, key);
   }
 }
