@@ -1,10 +1,10 @@
-import { IsObject, IsString } from 'class-validator';
+import { IsArray, IsObject, IsString } from 'class-validator';
 
 export class ChatDto {
   @IsString()
   question: string;
 
-  @IsString()
+  @IsArray({ each: true })
   history: Array<[string, string]>;
 }
 
