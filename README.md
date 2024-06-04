@@ -24,7 +24,11 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+VectorStore nestjs server with langchain + pgvector
+
+## Before Install
+
+You must install postgres@14 and pgvector. See [here](https://github.com/pgvector/pgvector).
 
 ## Installation
 
