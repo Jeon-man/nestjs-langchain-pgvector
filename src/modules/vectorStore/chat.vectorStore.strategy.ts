@@ -6,7 +6,7 @@ import * as pg from 'pg';
 @Injectable()
 export class ChatVectorStoreStrategy extends AbstractVectorStoreStrategy implements OnModuleInit {
   constructor(private readonly config: ConfigService) {
-    super('cosine');
+    super('cosine', config.get('OPEN_AI_API_KEY'));
   }
 
   createPool(): void {

@@ -34,11 +34,12 @@ const combineDocumentsFn = (docs: Document[]) => {
   return serializedDocs.join('\n\n');
 };
 
-export const makeChain = (retriever: VectorStoreRetriever) => {
+export const makeChain = (retriever: VectorStoreRetriever, apiKey: string) => {
   const condenseQuestionPrompt = PromptTemplate.fromTemplate(CONDENSE_TEMPLATE);
   const answerPrompt = PromptTemplate.fromTemplate(QA_TEMPLATE);
 
   const model = new ChatOpenAI({
+    apiKey,
     temperature: 0, // increase temperature to get more creative answers
     modelName: 'gpt-3.5-turbo', //change this to gpt-4 if you have access
   });

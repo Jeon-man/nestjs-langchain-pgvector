@@ -5,9 +5,11 @@ import { OpenAIEmbeddings } from '@langchain/openai';
 import { makeChain } from '@util/makeChain';
 
 export abstract class AbstractVectorStoreStrategy {
-  constructor(distanceStrategy: DistanceStrategy) {
+  constructor(distanceStrategy: DistanceStrategy, apiKey: string) {
     this.distanceStrategy = distanceStrategy;
+    this.apiKey = apiKey;
   }
+  private apiKey: string;
 
   protected pgVectorStore: PGVectorStore;
   protected pool: pg.Pool;
@@ -59,7 +61,7 @@ export abstract class AbstractVectorStoreStrategy {
     );
   }
 
-  protected async getChain() {
-    return makeChain(this.pgVectorStore.asRetriever());
+  public async getChain() {
+    return makeChain(this.pgVectorStore.asRetriever(), this.apiKey);
   }
 }

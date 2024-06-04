@@ -4,10 +4,14 @@ import { PDFLoader } from '@langchain/community/document_loaders/fs/pdf';
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
 import appRootPath from 'app-root-path';
 import { FileVectorStoreStrategy } from '@module/vectorStore/file.vectorStore.strategy';
+import { ChatVectorStoreStrategy } from '@module/vectorStore/chat.vectorStore.strategy';
 
 @Injectable()
 export class LangChainService {
-  constructor(private readonly fileVectorStore: FileVectorStoreStrategy) {}
+  constructor(
+    private readonly fileVectorStore: FileVectorStoreStrategy,
+    private readonly chatVectorStore: ChatVectorStoreStrategy,
+  ) {}
 
   async embeddingPdf() {
     const pdfLoader = new PDFLoader(appRootPath + '/storage/test.pdf');
@@ -38,5 +42,9 @@ export class LangChainService {
 
   async searchByQuery(query: string, key?: number) {
     return this.fileVectorStore.search(query, key);
+  }
+
+  async getChatStoreChain() {
+    return this.chatVectorStore.getChain();
   }
 }
