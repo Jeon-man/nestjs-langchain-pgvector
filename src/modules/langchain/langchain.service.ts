@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { Document } from '@langchain/core/documents';
 import { PDFLoader } from '@langchain/community/document_loaders/fs/pdf';
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
-import appRootPath from 'app-root-path';
 import { FileVectorStoreStrategy } from '@module/vectorStore/file.vectorStore.strategy';
 import { ChatVectorStoreStrategy } from '@module/vectorStore/chat.vectorStore.strategy';
 
@@ -13,8 +12,8 @@ export class LangChainService {
     private readonly chatVectorStore: ChatVectorStoreStrategy,
   ) {}
 
-  async embeddingPdf() {
-    const pdfLoader = new PDFLoader(appRootPath + '/storage/test.pdf');
+  async embeddingPdf(filepath: string) {
+    const pdfLoader = new PDFLoader(filepath);
     const pdf = await pdfLoader.load();
 
     const textSplitter = new RecursiveCharacterTextSplitter({
@@ -46,6 +45,10 @@ export class LangChainService {
 
   async searchByQuery(query: string, key?: number) {
     return this.fileVectorStore.search(query, key);
+  }
+
+  async getFileStoreChain() {
+    return this.fileVectorStore.getChain();
   }
 
   async getChatStoreChain() {

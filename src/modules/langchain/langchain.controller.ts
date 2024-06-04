@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { LangChainService } from './langchain.service';
 import { ChatDto, ChatEmbeddingDto } from './langchain.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('lang-chain')
 export class LangChainController {
@@ -11,15 +12,29 @@ export class LangChainController {
     return this.langchainService.searchByQuery(q, 23);
   }
 
+  @UseInterceptors(FileInterceptor('file'))
   @Post('pdf')
-  async readPdf() {
+  async readPdf(@UploadedFile() file: Express.Multer.File) {
     try {
-      await this.langchainService.embeddingPdf();
+      console.log(file);
+      await this.langchainService.embeddingPdf(file.path);
     } catch (err) {
       throw err;
     }
 
     return true;
+  }
+
+  @Post('pdf/question')
+  async searchDocument(@Body() { question }: ChatDto) {
+    const sanitizedQuestion = question.trim().replace('\n', ' ');
+
+    const chain = await this.langchainService.getFileStoreChain();
+
+    return chain.invoke({
+      question: sanitizedQuestion,
+      chat_history: '',
+    });
   }
 
   @Post('chat/question')
