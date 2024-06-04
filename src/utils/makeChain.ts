@@ -29,9 +29,9 @@ If the question is not related to the context or chat history, politely respond 
 Question: {question}
 Helpful answer in markdown:`;
 
-const combineDocumentsFn = (docs: Document[], separator = '\n\n') => {
+const combineDocumentsFn = (docs: Document[]) => {
   const serializedDocs = docs.map(doc => doc.pageContent);
-  return serializedDocs.join(separator);
+  return serializedDocs.join('\n\n');
 };
 
 export const makeChain = (retriever: VectorStoreRetriever) => {
