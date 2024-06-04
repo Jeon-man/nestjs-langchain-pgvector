@@ -1,10 +1,7 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Document } from '@langchain/core/documents';
 import { AbstractVectorStoreStrategy } from './vectorStore.strategy';
 import * as pg from 'pg';
-import { ChatOpenAI } from '@langchain/openai';
-import { makeChain } from '@util/makeChain';
 
 @Injectable()
 export class ChatVectorStoreStrategy extends AbstractVectorStoreStrategy implements OnModuleInit {
@@ -24,9 +21,5 @@ export class ChatVectorStoreStrategy extends AbstractVectorStoreStrategy impleme
 
   onModuleInit() {
     this.ensureDatabaseSchema(this.config.get('OPEN_AI_API_KEY'), 'chat');
-  }
-
-  startChain() {
-    makeChain(this.pgVectorStore.asRetriever());
   }
 }

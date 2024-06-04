@@ -3,7 +3,6 @@ import { ConfigService } from '@nestjs/config';
 import { Document } from '@langchain/core/documents';
 import { AbstractVectorStoreStrategy } from './vectorStore.strategy';
 import * as pg from 'pg';
-import { makeChain } from '@util/makeChain';
 
 @Injectable()
 export class FileVectorStoreStrategy extends AbstractVectorStoreStrategy implements OnModuleInit {
