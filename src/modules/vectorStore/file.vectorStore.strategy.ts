@@ -33,8 +33,4 @@ export class FileVectorStoreStrategy extends AbstractVectorStoreStrategy impleme
     this.pgVectorStore.asRetriever();
     return this.pgVectorStore.similaritySearch(query, key);
   }
-
-  startChat() {
-    makeChain(this.pgVectorStore.asRetriever());
-  }
 }
