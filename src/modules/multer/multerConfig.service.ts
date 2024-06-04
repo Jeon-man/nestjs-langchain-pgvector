@@ -12,7 +12,6 @@ export class MulterConfigService implements MulterOptionsFactory {
 
     return {
       fileFilter: (req, file, callback) => {
-        console.log(file.originalname);
         if (!file.originalname.endsWith('.pdf'))
           callback(new BadRequestException('Not a PDF file'), false);
 
