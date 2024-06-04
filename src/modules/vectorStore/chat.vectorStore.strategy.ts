@@ -2,6 +2,7 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AbstractVectorStoreStrategy } from './vectorStore.strategy';
 import * as pg from 'pg';
+import { Document } from '@langchain/core/documents';
 
 @Injectable()
 export class ChatVectorStoreStrategy extends AbstractVectorStoreStrategy implements OnModuleInit {
@@ -17,6 +18,10 @@ export class ChatVectorStoreStrategy extends AbstractVectorStoreStrategy impleme
       password: this.config.get('SQL_PASSWORD'),
       database: this.config.get('SQL_DATABASE'),
     });
+  }
+
+  async addDocument(documents: Document<Record<string, any>>[]) {
+    return this.pgVectorStore.addDocuments(documents);
   }
 
   onModuleInit() {

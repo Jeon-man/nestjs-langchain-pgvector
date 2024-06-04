@@ -40,6 +40,10 @@ export class LangChainService {
     await this.fileVectorStore.addDocument(embeddings);
   }
 
+  async embeddingChat(text: string, metadata: object) {
+    return this.chatVectorStore.addDocument([{ pageContent: text, metadata }]);
+  }
+
   async searchByQuery(query: string, key?: number) {
     return this.fileVectorStore.search(query, key);
   }

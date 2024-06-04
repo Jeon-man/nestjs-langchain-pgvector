@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { LangChainService } from './langchain.service';
-import { ChatDto } from './langchain.dto';
+import { ChatDto, ChatEmbeddingDto } from './langchain.dto';
 
 @Controller('lang-chain')
 export class LangChainController {
@@ -22,7 +22,7 @@ export class LangChainController {
     return true;
   }
 
-  @Post('question')
+  @Post('chat/question')
   async chatQuestion(@Body() { question, history }: ChatDto) {
     const sanitizedQuestion = question.trim().replace('\n', ' ');
 
@@ -36,5 +36,10 @@ export class LangChainController {
       question: sanitizedQuestion,
       chat_history: pastMessages,
     });
+  }
+
+  @Post('chat/embedding')
+  async embeddingChat(@Body() { text, metadata }: ChatEmbeddingDto) {
+    await this.langchainService.embeddingChat(text, metadata);
   }
 }
