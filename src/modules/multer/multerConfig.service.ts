@@ -12,9 +12,11 @@ export class MulterConfigService implements MulterOptionsFactory {
 
     return {
       fileFilter: (req, file, callback) => {
-        if (file.filename.endsWith('.pdf')) callback(null, true);
+        console.log(file.originalname);
+        if (!file.originalname.endsWith('.pdf'))
+          callback(new BadRequestException('Not a PDF file'), false);
 
-        callback(new BadRequestException('Not a PDF file'), false);
+        callback(null, true);
       },
       storage: diskStorage({
         destination: (req, file, callback) => {
@@ -23,7 +25,7 @@ export class MulterConfigService implements MulterOptionsFactory {
           callback(null, uploadPath);
         },
         filename: (req, file, callback) => {
-          callback(null, file.filename.replace(' ', '_'));
+          callback(null, file.originalname.replace(' ', '_'));
         },
       }),
     };
