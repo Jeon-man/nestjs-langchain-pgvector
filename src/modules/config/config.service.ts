@@ -9,6 +9,10 @@ export enum DatabaseDialect {
 
 export class EnvironmentVariables {
   @IsOptional()
+  @IsString()
+  APP_NAME: string = 'Langchain';
+
+  @IsOptional()
   @IsIn(['development', 'production', 'test'])
   NODE_ENV: 'development' | 'production' | 'test' = 'development';
 
@@ -37,6 +41,10 @@ export class EnvironmentVariables {
   @IsOptional()
   @IsIn(Object.values(DatabaseDialect))
   DIALECT: DatabaseDialect = DatabaseDialect.Postgres;
+
+  @IsOptional()
+  @IsIn(['error', 'warn', 'info', 'verbose', 'debug'])
+  LOG_LEVEL: 'error' | 'warn' | 'info' | 'verbose' | 'debug' = 'debug';
 
   @IsString()
   OPEN_AI_API_KEY: string;
