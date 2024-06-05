@@ -20,6 +20,7 @@ export class WinstonConfigService implements WinstonModuleOptionsFactory {
             winston.format.timestamp(),
             nestWinstonModuleUtilities.format.nestLike(this.config.get('APP_NAME'), {
               prettyPrint: true,
+              colors: true,
               processId: true,
             }),
           ),
