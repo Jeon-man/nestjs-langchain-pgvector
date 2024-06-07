@@ -4,6 +4,7 @@ import { PDFLoader } from '@langchain/community/document_loaders/fs/pdf';
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
 import { FileVectorStoreStrategy } from '@module/vectorStore/file.vectorStore.strategy';
 import { ChatVectorStoreStrategy } from '@module/vectorStore/chat.vectorStore.strategy';
+import { ChatStoreMetadata } from './langchain.interface';
 
 @Injectable()
 export class LangChainService {
@@ -51,7 +52,7 @@ export class LangChainService {
     return this.fileVectorStore.getChain(key, metadata);
   }
 
-  async getChatStoreChain(key?: number, metadata?: object) {
+  async getChatStoreChain(key?: number, metadata?: ChatStoreMetadata) {
     return this.chatVectorStore.getChain(key, metadata);
   }
 }

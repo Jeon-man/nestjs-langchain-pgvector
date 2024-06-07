@@ -1,4 +1,5 @@
 import { IsArray, IsObject, IsOptional, IsString } from 'class-validator';
+import { ChatStoreMetadata } from './langchain.interface';
 
 export class ChatDto {
   @IsString()
@@ -9,7 +10,7 @@ export class ChatDto {
 
   @IsOptional()
   @IsObject()
-  metadata?: object;
+  metadata?: ChatStoreMetadata;
 }
 
 export class ChatEmbeddingDto {
