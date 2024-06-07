@@ -2,16 +2,26 @@ import { Body, Controller, Get, Post, Query, UploadedFile, UseInterceptors } fro
 import { LangChainService } from './langchain.service';
 import { ChatDto, ChatEmbeddingDto } from './langchain.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import appRootPath from 'app-root-path';
 
 @Controller('lang-chain')
 export class LangChainController {
   constructor(private readonly langchainService: LangChainService) {}
 
+  @ApiTags('general')
+  @ApiOperation({
+    description: 'search from vector',
+  })
   @Get('similaritySearch')
   async getSearch(@Query('q') q: string) {
     return this.langchainService.searchByQuery(q, 23);
   }
 
+  @ApiTags('pdf')
+  @ApiOperation({
+    description: 'embedding pdf row',
+  })
   @UseInterceptors(FileInterceptor('file'))
   @Post('pdf')
   async readPdf(@UploadedFile() file: Express.Multer.File) {
@@ -25,6 +35,10 @@ export class LangChainController {
     return true;
   }
 
+  @ApiTags('pdf')
+  @ApiOperation({
+    description: 'search from pdf vector store',
+  })
   @Post('pdf/question')
   async searchDocument(@Body() { question }: ChatDto) {
     const sanitizedQuestion = question.trim().replace('\n', ' ');
@@ -37,6 +51,10 @@ export class LangChainController {
     });
   }
 
+  @ApiTags('chat')
+  @ApiOperation({
+    description: 'search from chat vector store',
+  })
   @Post('chat/question')
   async chatQuestion(@Body() { question, history, metadata }: ChatDto) {
     const sanitizedQuestion = question.trim().replace('\n', ' ');
@@ -53,6 +71,10 @@ export class LangChainController {
     });
   }
 
+  @ApiTags('chat')
+  @ApiOperation({
+    description: 'embedding chat row',
+  })
   @Post('chat/embedding')
   async embeddingChat(@Body() { text, metadata }: ChatEmbeddingDto) {
     await this.langchainService.embeddingChat(text, metadata);
