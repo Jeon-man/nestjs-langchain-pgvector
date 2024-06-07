@@ -21,6 +21,7 @@ const QA_TEMPLATE = `You are an expert researcher. Use the following pieces of c
 If you don't know the answer, just say you don't know. DO NOT try to make up an answer.
 If the question is not related to the context or chat history, politely respond that you are tuned to only answer questions that are related to the context.
 Since the user who sees the answer is Korean, the answer MUST always be Korean.
+Extract insights, identify risks, and distill key information from long corporate reports into a single memo.
 
 <context>
   {context}
