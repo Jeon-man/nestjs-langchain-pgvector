@@ -38,10 +38,10 @@ export class LangChainController {
   }
 
   @Post('chat/question')
-  async chatQuestion(@Body() { question, history }: ChatDto) {
+  async chatQuestion(@Body() { question, history, metadata }: ChatDto) {
     const sanitizedQuestion = question.trim().replace('\n', ' ');
 
-    const chain = await this.langchainService.getChatStoreChain();
+    const chain = await this.langchainService.getChatStoreChain(undefined, metadata);
 
     const pastMessages = history
       .map(([human, assistant]) => [`Human: ${human}`, `Assistant: ${assistant}`].join('\n'))

@@ -47,11 +47,11 @@ export class LangChainService {
     return this.fileVectorStore.search(query, key);
   }
 
-  async getFileStoreChain() {
-    return this.fileVectorStore.getChain();
+  async getFileStoreChain(key?: number, metadata?: object) {
+    return this.fileVectorStore.getChain(key, metadata);
   }
 
-  async getChatStoreChain() {
-    return this.chatVectorStore.getChain();
+  async getChatStoreChain(key?: number, metadata?: object) {
+    return this.chatVectorStore.getChain(key, metadata);
   }
 }

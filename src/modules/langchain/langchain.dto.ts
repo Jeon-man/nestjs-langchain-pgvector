@@ -1,4 +1,4 @@
-import { IsArray, IsObject, IsString } from 'class-validator';
+import { IsArray, IsObject, IsOptional, IsString } from 'class-validator';
 
 export class ChatDto {
   @IsString()
@@ -6,6 +6,10 @@ export class ChatDto {
 
   @IsArray({ each: true })
   history: Array<[string, string]>;
+
+  @IsOptional()
+  @IsObject()
+  metadata?: object;
 }
 
 export class ChatEmbeddingDto {

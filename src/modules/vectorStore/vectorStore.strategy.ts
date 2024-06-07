@@ -62,6 +62,13 @@ export abstract class AbstractVectorStoreStrategy {
   }
 
   public async getChain(key?: number, metadata?: object) {
-    return makeChain(this.pgVectorStore.asRetriever(key, { ...metadata }), this.apiKey);
+    return makeChain(
+      this.pgVectorStore.asRetriever({
+        filter: {
+          ...metadata,
+        },
+      }),
+      this.apiKey,
+    );
   }
 }
