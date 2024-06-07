@@ -11,7 +11,7 @@ export class LangChainController {
 
   @ApiTags('general')
   @ApiOperation({
-    description: 'search from vector',
+    summary: 'search from vector',
   })
   @Get('similaritySearch')
   async getSearch(@Query('q') q: string) {
@@ -20,7 +20,7 @@ export class LangChainController {
 
   @ApiTags('pdf')
   @ApiOperation({
-    description: 'embedding pdf row',
+    summary: 'embedding pdf row',
   })
   @UseInterceptors(FileInterceptor('file'))
   @Post('pdf')
@@ -37,7 +37,7 @@ export class LangChainController {
 
   @ApiTags('pdf')
   @ApiOperation({
-    description: 'search from pdf vector store',
+    summary: 'search from pdf vector store',
   })
   @Post('pdf/question')
   async searchDocument(@Body() { question }: ChatDto) {
@@ -53,7 +53,7 @@ export class LangChainController {
 
   @ApiTags('chat')
   @ApiOperation({
-    description: 'search from chat vector store',
+    summary: 'search from chat vector store',
   })
   @Post('chat/question')
   async chatQuestion(@Body() { question, history, metadata }: ChatDto) {
@@ -73,7 +73,7 @@ export class LangChainController {
 
   @ApiTags('chat')
   @ApiOperation({
-    description: 'embedding chat row',
+    summary: 'embedding chat row',
   })
   @Post('chat/embedding')
   async embeddingChat(@Body() { text, metadata }: ChatEmbeddingDto) {
