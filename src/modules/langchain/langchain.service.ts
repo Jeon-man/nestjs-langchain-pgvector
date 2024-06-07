@@ -5,6 +5,7 @@ import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
 import { FileVectorStoreStrategy } from '@module/vectorStore/file.vectorStore.strategy';
 import { ChatVectorStoreStrategy } from '@module/vectorStore/chat.vectorStore.strategy';
 import { ChatStoreMetadata } from './langchain.interface';
+import { Prompt } from '@util/makeChain';
 
 @Injectable()
 export class LangChainService {
@@ -48,11 +49,11 @@ export class LangChainService {
     return this.fileVectorStore.search(query, key);
   }
 
-  async getFileStoreChain(key?: number, metadata?: object) {
-    return this.fileVectorStore.getChain(key, metadata);
+  async getFileStoreChain(key?: number, metadata?: object, prompt?: Partial<Prompt>) {
+    return this.fileVectorStore.getChain(key, metadata, prompt);
   }
 
-  async getChatStoreChain(key?: number, metadata?: ChatStoreMetadata) {
-    return this.chatVectorStore.getChain(key, metadata);
+  async getChatStoreChain(key?: number, metadata?: ChatStoreMetadata, prompt?: Partial<Prompt>) {
+    return this.chatVectorStore.getChain(key, metadata, prompt);
   }
 }

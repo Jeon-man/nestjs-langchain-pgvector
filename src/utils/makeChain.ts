@@ -5,6 +5,11 @@ import { StringOutputParser } from '@langchain/core/output_parsers';
 import type { Document } from '@langchain/core/documents';
 import type { VectorStoreRetriever } from '@langchain/core/vectorstores';
 
+export interface Prompt {
+  CONDENSE_TEMPLATE: string;
+  QA_TEMPLATE: string;
+}
+
 // To use the answer in another language, change the bottom sentence.
 const CONDENSE_TEMPLATE = `Given the following conversation and a follow up question, rephrase the follow up question to be a standalone question.
 
@@ -39,9 +44,15 @@ const combineDocumentsFn = (docs: Document[]) => {
   return serializedDocs.join('\n\n');
 };
 
-export const makeChain = (retriever: VectorStoreRetriever, apiKey: string) => {
-  const condenseQuestionPrompt = PromptTemplate.fromTemplate(CONDENSE_TEMPLATE);
-  const answerPrompt = PromptTemplate.fromTemplate(QA_TEMPLATE);
+export const makeChain = (
+  retriever: VectorStoreRetriever,
+  apiKey: string,
+  { CONDENSE_TEMPLATE: custom_condense_template, QA_TEMPLATE: qa_template }: Partial<Prompt>,
+) => {
+  const condenseQuestionPrompt = PromptTemplate.fromTemplate(
+    custom_condense_template ?? CONDENSE_TEMPLATE,
+  );
+  const answerPrompt = PromptTemplate.fromTemplate(qa_template ?? QA_TEMPLATE);
 
   const model = new ChatOpenAI({
     apiKey,

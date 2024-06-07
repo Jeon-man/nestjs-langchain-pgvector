@@ -56,10 +56,10 @@ export class LangChainController {
     summary: 'search from chat vector store',
   })
   @Post('chat/question')
-  async chatQuestion(@Body() { question, history, metadata }: ChatDto) {
+  async chatQuestion(@Body() { question, history, metadata, prompt }: ChatDto) {
     const sanitizedQuestion = question.trim().replace('\n', ' ');
 
-    const chain = await this.langchainService.getChatStoreChain(undefined, metadata);
+    const chain = await this.langchainService.getChatStoreChain(undefined, metadata, prompt);
 
     const pastMessages = history
       .map(([human, assistant]) => [`Human: ${human}`, `Assistant: ${assistant}`].join('\n'))

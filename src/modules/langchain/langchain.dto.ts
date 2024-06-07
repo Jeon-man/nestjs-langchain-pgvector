@@ -1,6 +1,7 @@
 import { IsArray, IsObject, IsOptional, IsString } from 'class-validator';
 import { ChatStoreMetadata } from './langchain.interface';
 import { ApiProperty } from '@nestjs/swagger';
+import { Prompt } from '@util/makeChain';
 
 export class ChatDto {
   @ApiProperty()
@@ -25,6 +26,15 @@ export class ChatDto {
   @IsOptional()
   @IsObject()
   metadata?: ChatStoreMetadata;
+
+  @ApiProperty({
+    example: {
+      CONDENSE_TEMPLATE: 'string',
+      QA_TEMPLATE: 'string',
+    },
+  })
+  @IsObject()
+  prompt?: Partial<Prompt>;
 }
 
 export class ChatEmbeddingDto {
