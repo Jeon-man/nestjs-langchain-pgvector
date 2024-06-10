@@ -33,6 +33,7 @@ export class ChatDto {
       QA_TEMPLATE: 'string',
     },
   })
+  @IsOptional()
   @IsObject()
   prompt?: Partial<Prompt>;
 }
