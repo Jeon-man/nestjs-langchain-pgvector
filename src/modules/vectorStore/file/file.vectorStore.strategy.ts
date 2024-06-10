@@ -1,11 +1,15 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { AbstractVectorStoreStrategy } from './vectorStore.strategy';
-import * as pg from 'pg';
 import { Document } from '@langchain/core/documents';
+import { AbstractVectorStoreStrategy } from '../vectorStore.strategy';
+import * as pg from 'pg';
+import { FileMetadata } from './file.metadata';
 
 @Injectable()
-export class ChatVectorStoreStrategy extends AbstractVectorStoreStrategy implements OnModuleInit {
+export class FileVectorStoreStrategy
+  extends AbstractVectorStoreStrategy<FileMetadata>
+  implements OnModuleInit
+{
   constructor(private readonly config: ConfigService) {
     super('cosine', config.get('OPEN_AI_API_KEY'));
   }
@@ -20,11 +24,16 @@ export class ChatVectorStoreStrategy extends AbstractVectorStoreStrategy impleme
     });
   }
 
+  onModuleInit() {
+    this.ensureDatabaseSchema(this.config.get('OPEN_AI_API_KEY'), 'file');
+  }
+
   async addDocument(documents: Document<Record<string, any>>[]) {
     return this.pgVectorStore.addDocuments(documents);
   }
 
-  onModuleInit() {
-    this.ensureDatabaseSchema(this.config.get('OPEN_AI_API_KEY'), 'chat');
+  async search(query: string, key?: number) {
+    this.pgVectorStore.asRetriever();
+    return this.pgVectorStore.similaritySearch(query, key);
   }
 }

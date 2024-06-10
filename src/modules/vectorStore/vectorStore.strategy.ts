@@ -3,8 +3,9 @@ import * as pg from 'pg';
 import { PgVectorColumn } from './vectorStore.interface';
 import { OpenAIEmbeddings } from '@langchain/openai';
 import { makeChain, Prompt } from '@util/makeChain';
+import { MetadataFilterOptions } from './metadata';
 
-export abstract class AbstractVectorStoreStrategy {
+export abstract class AbstractVectorStoreStrategy<Metadata extends Object> {
   constructor(distanceStrategy: DistanceStrategy, apiKey: string) {
     this.distanceStrategy = distanceStrategy;
     this.apiKey = apiKey;
@@ -61,7 +62,11 @@ export abstract class AbstractVectorStoreStrategy {
     );
   }
 
-  public async getChain(key?: number, metadata?: object, prompt?: Partial<Prompt>) {
+  public async getChain(
+    key?: number,
+    metadata?: MetadataFilterOptions<Metadata>,
+    prompt?: Partial<Prompt>,
+  ) {
     return makeChain(
       this.pgVectorStore.asRetriever({
         filter: {

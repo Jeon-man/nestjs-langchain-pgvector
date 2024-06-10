@@ -3,7 +3,6 @@ import { LangChainService } from './langchain.service';
 import { ChatDto, ChatEmbeddingDto } from './langchain.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import appRootPath from 'app-root-path';
 
 @Controller('lang-chain')
 export class LangChainController {

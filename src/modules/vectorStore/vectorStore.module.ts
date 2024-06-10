@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { FileVectorStoreStrategy } from './file.vectorStore.strategy';
-import { ChatVectorStoreStrategy } from './chat.vectorStore.strategy';
+import { FileVectorStoreStrategy } from './file/file.vectorStore.strategy';
+import { ChatVectorStoreStrategy } from './chat/chat.vectorStore.strategy';
 
 @Module({
   providers: [FileVectorStoreStrategy, ChatVectorStoreStrategy],
