@@ -57,7 +57,7 @@ export const makeChain = (
   const model = new ChatOpenAI({
     apiKey,
     temperature: 0, // increase temperature to get more creative answers
-    modelName: 'gpt-3.5-turbo', //change this to gpt-4 if you have access
+    modelName: 'gpt-4-1106-preview', //change this to gpt-4 if you have access
   });
 
   // Rephrase the initial question into a dereferenced standalone question based on
