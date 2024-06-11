@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
+import { ChatVectorStoreStrategy } from './chat.vectorStore.strategy';
 
 @Module({
-  providers: [ChatVectorStoreModule],
-  exports: [ChatVectorStoreModule],
+  providers: [ChatVectorStoreStrategy],
+  exports: [ChatVectorStoreStrategy],
 })
 export class ChatVectorStoreModule {}
