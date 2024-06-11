@@ -3,6 +3,6 @@ import { FileVectorStoreStrategy } from './file.vectorStore.strategy';
 
 @Module({
   providers: [FileVectorStoreStrategy],
-  exports: [FileVectorStoreModule],
+  exports: [FileVectorStoreStrategy],
 })
 export class FileVectorStoreModule {}
