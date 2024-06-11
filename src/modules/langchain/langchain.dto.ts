@@ -1,4 +1,4 @@
-import { IsArray, IsNumber, IsObject, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsBoolean, IsNumber, IsObject, IsOptional, IsString } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Prompt } from '@util/makeChain';
 import { ChatMetadata } from '@module/vectorStore/chat/chat.metadata';
@@ -56,4 +56,9 @@ export class PdfEmbeddingDto {
   @ApiPropertyOptional()
   @IsNumber()
   messageGroupId?: number;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsBoolean()
+  withChat: boolean = false;
 }

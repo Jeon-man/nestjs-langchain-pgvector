@@ -25,10 +25,10 @@ export class LangChainController {
   @Post('pdf')
   async readPdf(
     @UploadedFile() file: Express.Multer.File,
-    @Body() { messageGroupId }: PdfEmbeddingDto,
+    @Body() { messageGroupId, withChat }: PdfEmbeddingDto,
   ) {
     try {
-      await this.langchainService.embeddingPdf(file.path, messageGroupId);
+      await this.langchainService.embeddingPdf(file.path, withChat, messageGroupId);
     } catch (err) {
       throw err;
     }
