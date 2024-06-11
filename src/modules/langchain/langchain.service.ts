@@ -16,7 +16,7 @@ export class LangChainService {
     private readonly chatVectorStore: ChatVectorStoreStrategy,
   ) {}
 
-  async embeddingPdf(filepath: string) {
+  async embeddingPdf(filepath: string, messageGroupId?: number) {
     const pdfLoader = new PDFLoader(filepath);
     const pdf = await pdfLoader.load();
 
@@ -36,6 +36,7 @@ export class LangChainService {
         pageContent: text,
         metadata: {
           pageNumber: i,
+          ...(messageGroupId ? { messageGroupId } : undefined),
         },
       }));
       embeddings = embeddings.concat(pageEmbeddings);

@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { LangChainService } from './langchain.service';
-import { ChatDto, ChatEmbeddingDto } from './langchain.dto';
+import { ChatDto, ChatEmbeddingDto, PdfEmbeddingDto } from './langchain.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
@@ -23,10 +23,12 @@ export class LangChainController {
   })
   @UseInterceptors(FileInterceptor('file'))
   @Post('pdf')
-  async readPdf(@UploadedFile() file: Express.Multer.File) {
+  async readPdf(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() { messageGroupId }: PdfEmbeddingDto,
+  ) {
     try {
-      console.log(file);
-      await this.langchainService.embeddingPdf(file.path);
+      await this.langchainService.embeddingPdf(file.path, messageGroupId);
     } catch (err) {
       throw err;
     }
