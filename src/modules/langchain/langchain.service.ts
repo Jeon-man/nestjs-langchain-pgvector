@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { Document } from '@langchain/core/documents';
 import { PDFLoader } from '@langchain/community/document_loaders/fs/pdf';
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
-import { FileVectorStoreStrategy } from '@module/vectorStore/file/file.vectorStore.strategy';
-import { ChatVectorStoreStrategy } from '@module/vectorStore/chat/chat.vectorStore.strategy';
 import { Prompt } from '@util/makeChain';
 import { FileMetadata } from '@module/vectorStore/file/file.metadata';
 import { ChatMetadata } from '@module/vectorStore/chat/chat.metadata';
 import { MetadataFilterOptions } from '@module/vectorStore/metadata';
+import { FileVectorStoreStrategy } from '@module/vectorStore/file/file.vectorStore.strategy';
+import { ChatVectorStoreStrategy } from '@module/vectorStore/chat/chat.vectorStore.strategy';
 
 @Injectable()
 export class LangChainService {
