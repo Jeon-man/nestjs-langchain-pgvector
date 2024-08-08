@@ -45,6 +45,8 @@ describe('LangChainService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+    expect(fileVectorStore).toBeDefined();
+    expect(fileVectorStore).toBeDefined();
   });
 
   describe('embeddingPdf', () => {
