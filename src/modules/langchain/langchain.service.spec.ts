@@ -89,41 +89,41 @@ describe('LangChainService', () => {
     });
   });
 
-  // describe('embeddingChat', () => {
-  //   it('should embed chat and store document', async () => {
-  //     const text = 'Hello, world!';
-  //     const metadata = { user: 'user1' };
+  describe('embeddingChat', () => {
+    it('should embed chat and store document', async () => {
+      const text = 'Hello, world!';
+      const metadata = { user: 'user1' };
 
-  //     await service.embeddingChat(text, metadata);
+      await service.embeddingChat(text, metadata);
 
-  //     expect(chatVectorStore.addDocument).toHaveBeenCalledWith([{ pageContent: text, metadata }]);
-  //   });
-  // });
+      expect(chatVectorStore.addDocument).toHaveBeenCalledWith([{ pageContent: text, metadata }]);
+    });
+  });
 
-  // describe('searchByQuery', () => {
-  //   it('should call search on fileVectorStore', async () => {
-  //     const query = 'search term';
-  //     await service.searchByQuery(query);
+  describe('searchByQuery', () => {
+    it('should call search on fileVectorStore', async () => {
+      const query = 'search term';
+      await service.searchByQuery(query);
 
-  //     expect(fileVectorStore.search).toHaveBeenCalledWith(query, undefined);
-  //   });
-  // });
+      expect(fileVectorStore.search).toHaveBeenCalledWith(query, undefined);
+    });
+  });
 
-  // describe('getFileStoreChain', () => {
-  //   it('should call getChain on fileVectorStore', async () => {
-  //     const key = 123;
-  //     await service.getFileStoreChain(key);
+  describe('getFileStoreChain', () => {
+    it('should call getChain on fileVectorStore', async () => {
+      const key = 123;
+      await service.getFileStoreChain(key);
 
-  //     expect(fileVectorStore.getChain).toHaveBeenCalledWith(key, undefined, undefined);
-  //   });
-  // });
+      expect(fileVectorStore.getChain).toHaveBeenCalledWith(key, undefined, undefined);
+    });
+  });
 
-  // describe('getChatStoreChain', () => {
-  //   it('should call getChain on chatVectorStore', async () => {
-  //     const key = 123;
-  //     await service.getChatStoreChain(key);
+  describe('getChatStoreChain', () => {
+    it('should call getChain on chatVectorStore', async () => {
+      const key = 123;
+      await service.getChatStoreChain(key);
 
-  //     expect(chatVectorStore.getChain).toHaveBeenCalledWith(key, undefined, undefined);
-  //   });
-  // });
+      expect(chatVectorStore.getChain).toHaveBeenCalledWith(key, undefined, undefined);
+    });
+  });
 });
